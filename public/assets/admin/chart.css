@@ -1,0 +1,13 @@
+.panel-body{
+    position: relative;
+}
+.chart_loader{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    opacity: 0.5;
+}
+.chart_loader i{
+    font-size: 3em !important;
+}

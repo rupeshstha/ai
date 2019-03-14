@@ -8,73 +8,8 @@
 <div class="page-content">
 @include('voyager::alerts')
 @if ( env('ANALYTICS_VIEW_ID') != null )
-@php
-	$chart_containers = [
-		[
-			'row' => '6',
-			'title' => ' This Week Vs. Last Week',
-			'sub_title' => 'Sessions',
-			'id' => 'thisWeekVsLastWeek'
-		],
-		[
-			'row' => '6',
-			'title' => 'Top Browsers',
-			'sub_title' => 'Last 7 Days',
-			'id' => 'topBrowsers'
-		],
-		[
-			'row' => '6',
-			'title' => 'Top Countries',
-			'sub_title' => 'Last 7 Days',
-			'id' => 'topCountries'
-		],
-		[
-			'row' => '6',
-			'title' => 'Top Sources',
-			'sub_title' => 'Last 7 Days',
-			'id' => 'topSources'
-		],
-		[
-			'row' => '6',
-			'title' => 'Active Users',
-			'sub_title' => 'This Week',
-			'id' => 'activeUsers'
-		],
-		[
-			'row' => '6',
-			'title' => 'New Vs. Returning Users',
-			'sub_title' => 'This Week ',
-			'id' => 'newUsersVsReturningUsers'
-		],
-		[
-			'row' => '12',
-			'title' => 'Last 30 days',
-			'sub_title' => 'session',
-			'id' => 'last30Days'
-		],
-	];
-@endphp
 	<div class="analytics-container">
-		<div class="row">
-		@foreach ($chart_containers as $container)
-			<div class="col-md-{{ $container['row'] }}">
-				<div class="panel panel-bordered">
-					<div class="panel-body">
-						<div class="panel-heading analytics-panel">
-							<h3>
-								{{ $container['title'] }} <small>( {{ $container['sub_title'] }} )</small>
-							</h3>
-						</div>
-						<span class="chart_loader" id="chart_loader_{{ $container['id'] }}">
-							<i class="voyager-helm"></i>
-						</span>
-						<div>
-							<canvas id="{{ $container['id'] }}"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		@endforeach
+		<div class="row" id="analytics_charts">{{-- Charts Divs will be added dynamically wtih javascript --}}
 		</div>
 	</div>
 @endif
@@ -88,7 +23,7 @@
 <script>
 $(function()
 {
-	var data, request, cache_minute;
+	var data, request, cache_minute, chart_ids, chart_divs, analytics_charts;
 	var app = {
 		// Initialize
 		init : function()
@@ -105,9 +40,49 @@ $(function()
 				'newUsersVsReturningUsers', // New Vs Returning users
 				'last30Days' // Last 30 days Analytics
 			];
+			chart_divs = {
+				'thisWeekVsLastWeek' : {
+					'title' : 'This Week Vs. Last Week',
+					'sub_title' : 'Sessions',
+					'column' : '6'
+				},
+				'topBrowsers' : {
+					'title' : 'Top Browsers',
+					'sub_title' : 'Last 7 Days',
+					'column' : '6'
+				},
+				'topCountries' : {
+					'title' : 'Top Countries',
+					'sub_title' : 'Last 7 Days',
+					'column' : '6'
+				},
+				'topSources' : {
+					'title' : 'Top Sources',
+					'sub_title' : 'Last 7 Days',
+					'column' : '6'
+				},
+				'activeUsers' : {
+					'title' : 'Active Users',
+					'sub_title' : 'This Week',
+					'column' : '6'
+				},
+				'newUsersVsReturningUsers' : {
+					'title' : 'New Vs. Returning Users',
+					'sub_title' : 'This Week',
+					'column' : '6'
+				},
+				'last30Days' : {
+					'title' : 'Last 30 days',
+					'sub_title' : 'session',
+					'column' : '12'
+				}
+			};
+			analytics_charts = $('#analytics_charts');
+
 			// Loop through all the chart_ids and generate chart
 			$.each( chart_ids, function(index, id)
 			{
+				app.generate_div(id);
 				app.analytics(id);
 			});
 		},
@@ -118,6 +93,31 @@ $(function()
 			recorded_date = new Date( check_date );
 			time_diff = Math.abs( current_date.getTime() - recorded_date.getTime() );
 			return ( time_diff > expire_threshold ) ? true : false;
+		},
+		// Generate an analytics chart Div.
+		generate_div : function(self_id)
+		{
+			div_template = `
+			<div class="col-md-${chart_divs[self_id].column}">
+				<div class="panel panel-bordered">
+					<div class="panel-body">
+						<div class="panel-heading analytics-panel">
+							<h3>
+								${chart_divs[self_id].title} <small>( ${chart_divs[self_id].sub_title} )</small>
+							</h3>
+						</div>
+						<span class="chart_loader" id="chart_loader_${self_id}">
+							<i class="voyager-helm"></i>
+						</span>
+						<div>
+							<canvas id="${self_id}"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			`;
+
+			analytics_charts.append(div_template);
 		},
 		// Check Analytics local
 		analytics : function(self_id)

@@ -19,7 +19,7 @@
  * Service definition for Docs (v1).
  *
  * <p>
- * An API for creating and editing Google Docs documents.</p>
+ * Reads and writes Google Docs documents.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -58,6 +58,7 @@ class Google_Service_Docs extends Google_Service
     parent::__construct($client);
     $this->rootUrl = 'https://docs.googleapis.com/';
     $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v1';
     $this->serviceName = 'docs';
 

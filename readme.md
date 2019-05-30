@@ -33,7 +33,7 @@ Paste the **View ID** into `.env` file:
 # Make sure to make : "analytics-api@embeded-dashboard.iam.gserviceaccount.com" admin of the google analytics.
 ANALYTICS_VIEW_ID=157051864
 ```
-## 4. Login Credentials
+### 4. Login Credentials
 The login credentials for the admin panel are:
 >**User :** `admin@admin.com`   
 >**Pass :** `password`

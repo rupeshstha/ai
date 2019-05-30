@@ -4,10 +4,30 @@
 .chart_loader{
     position: absolute;
     left:50%;
-    top:50%;
+    top:calc(50% - 1em);
     transform: translate(-50%,-50%);
     opacity: 0.5;
 }
 .chart_loader i{
     font-size: 3em !important;
+}
+.realtime-panel {
+	margin-bottom: 0 !important;
+}
+.realtime-body {
+	height: 160px;
+}
+#realtime_visitors {
+	font-size: 80px;
+}
+.realtime-list ul {
+	margin-left: 10px;
+	padding-left: 0;
+}
+.realtime-list ul li {
+	font-size: 16px;
+	max-height: 20px !important;
+	margin-bottom: 10px;
+	overflow: hidden;
+	list-style: none;
 }

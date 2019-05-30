@@ -7,6 +7,57 @@
 @section('content')
 <div class="page-content">
 @include('voyager::alerts')
+	<div class="row analytics-container">
+		<div class="col-md-4">
+			<div class="panel panel-bordered realtime-panel">
+				<div class="panel-heading analytics-panel">
+					<h3>
+						Active Users right now
+					</h3>
+				</div>
+				<div class="panel-body realtime-body">
+					<span class="chart_loader" id="chart_loader_realtime_visitors">
+						<i class="voyager-helm"></i>
+					</span>
+					<div class="text-center">
+						<h1 id="realtime_visitors"></h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-bordered realtime-panel">
+				<div class="panel-heading analytics-panel">
+					<h3>
+						Traffic Sources right now
+					</h3>
+				</div>
+				<div class="panel-body realtime-body">
+					<span class="chart_loader" id="chart_loader_realtime_sources">
+						<i class="voyager-helm"></i>
+					</span>
+					<div class="realtime_sources realtime-list">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-bordered realtime-panel">
+				<div class="panel-heading analytics-panel">
+					<h3>
+						Active Pages right now
+					</h3>
+				</div>
+				<div class="panel-body realtime-body">
+					<span class="chart_loader" id="chart_loader_realtime_pages">
+						<i class="voyager-helm"></i>
+					</span>
+					<div class="realtime_pages realtime-list">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 @if ( env('ANALYTICS_VIEW_ID') != null )
 	<div class="analytics-container">
 		<div class="row" id="analytics_charts">{{-- Charts Divs will be added dynamically wtih javascript --}}
@@ -146,6 +197,77 @@ $(function()
 			});
 		}
 	}
+
+	var realtime_app = {
+		init : function()
+		{
+			request = $.ajax({
+				url : "{{ route('admin.realtime_data') }}"
+			});
+
+			request.done( function(remote_data)
+			{
+				realtime_app.stats = remote_data;
+				realtime_app.load_visitor();
+				realtime_app.load_source();
+				realtime_app.load_page();
+			});
+		},
+		load_visitor : function()
+		{
+			$('#chart_loader_realtime_visitors').fadeOut( function() {
+				$('#realtime_visitors').fadeOut( function() {
+					$(this).html(realtime_app.stats.realtime_visitors);
+					$(this).fadeIn();
+				});
+			});
+		},
+		load_source : function()
+		{
+			$('#chart_loader_realtime_sources').fadeOut( function() {
+				$('.realtime_sources').fadeOut( function() {
+					if ( realtime_app.stats.realtime_sources.length > 0 )
+					{
+						template = `<ul>`;
+						$.each(realtime_app.stats.realtime_sources, function( index, value ) {
+							template += `<li><i class="voyager-paperclip"></i> ${value}</li>`;
+						});
+						template += `</ul>`;
+					}
+					else
+					{
+						template = `<div class="text-center"><h3>Not Available</h3></div>`;
+					}
+					$(this).html(template);
+					$(this).fadeIn();
+				});
+			});
+		},
+		load_page : function()
+		{
+			$('#chart_loader_realtime_pages').fadeOut( function() {
+				$('.realtime_pages').fadeOut( function() {
+					if ( realtime_app.stats.realtime_pages.length > 0 )
+					{
+						template = `<ul>`;
+						$.each(realtime_app.stats.realtime_pages, function( index, value ) {
+							template += `<li><a href="${value['link']}" title="${value['title']}" target="_blank"><i class="voyager-external"></i> ${value['title']}</a></li>`;
+						});
+						template += `</ul>`;
+					}
+					else
+					{
+						template = `<div class="text-center"><h3>Not Available</h3></div>`;
+					}
+					$(this).html(template);
+					$(this).fadeIn();
+				});
+			});
+			console.log(realtime_app.stats.realtime_pages);
+		}
+	}
+	realtime_app.init();
+	window.setInterval(realtime_app.init, 15000);
 	app.init();
 });
 </script>

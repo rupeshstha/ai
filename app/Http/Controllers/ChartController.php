@@ -185,4 +185,67 @@ class ChartController extends Controller
 
 		return response()->json($response);
 	}
+
+	public function realtime_data()
+	{
+		// cache()->flush();
+		$add_fifteen = Carbon::now()->addSeconds(15);
+		$visitors = cache()->remember('realtime_visitors', $add_fifteen, function() {
+			$realtime_data = Analytics::getAnalyticsService()->data_realtime->get(
+				'ga:'.env('ANALYTICS_VIEW_ID'),
+				'rt:activeVisitors'
+			)->totalsForAllResults['rt:activeVisitors'];
+			return number_format($realtime_data, 0);
+		});
+
+		$sources = cache()->remember('realtime_sources', $add_fifteen, function() {
+			$realtime_sources = Analytics::getAnalyticsService()->data_realtime->get(
+				'ga:'.env('ANALYTICS_VIEW_ID'),
+				'rt:activeVisitors',
+				[
+					'dimensions' => 'rt:source',
+					'sort' => '-rt:activeVisitors',
+					'max-results' => '3'
+				]
+			)->rows;
+			$realtime_data = [];
+			if ( count($realtime_sources) > 0 )
+			{
+				foreach ( $realtime_sources as $source ) $realtime_data[] = $source[0];
+			}
+			return $realtime_data;
+		});
+
+		$pages = cache()->remember('realtime_pages', $add_fifteen, function() {
+			$realtime_pages = Analytics::getAnalyticsService()->data_realtime->get(
+				'ga:'.env('ANALYTICS_VIEW_ID'),
+				'rt:activeVisitors',
+				[
+					'dimensions' => 'rt:pageTitle, rt:pagePath',
+					'sort' => '-rt:activeVisitors',
+					'max-results' => '3'
+				]
+			)->rows;
+			$realtime_data = [];
+			if ( count($realtime_pages) > 0 )
+			{
+				foreach ( $realtime_pages as $page )
+				{
+					$realtime_data[] = [
+						'title' => $page[0],
+						'link' => asset('').substr($page[1], 1)
+					];
+				}
+			}
+			return $realtime_data;
+		});
+
+		$return_data = [
+			'realtime_visitors' => $visitors,
+			'realtime_sources' => $sources,
+			'realtime_pages' => $pages,
+		];
+
+		return response()->json($return_data);
+	}
 }

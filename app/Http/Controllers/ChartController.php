@@ -188,7 +188,7 @@ class ChartController extends Controller
 
 	public function realtime_data()
 	{
-		// cache()->flush();
+		// cache()->flush(); // This clears the cache
 		$add_fifteen = Carbon::now()->addSeconds(15);
 		$visitors = cache()->remember('realtime_visitors', $add_fifteen, function() {
 			$realtime_data = Analytics::getAnalyticsService()->data_realtime->get(
@@ -205,7 +205,7 @@ class ChartController extends Controller
 				[
 					'dimensions' => 'rt:source',
 					'sort' => '-rt:activeVisitors',
-					'max-results' => '3'
+					'max-results' => '5'
 				]
 			)->rows;
 			$realtime_data = [];
@@ -223,7 +223,7 @@ class ChartController extends Controller
 				[
 					'dimensions' => 'rt:pageTitle, rt:pagePath',
 					'sort' => '-rt:activeVisitors',
-					'max-results' => '3'
+					'max-results' => '5'
 				]
 			)->rows;
 			$realtime_data = [];

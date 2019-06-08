@@ -7,52 +7,54 @@
 @section('content')
 <div class="page-content">
 @include('voyager::alerts')
-	<div class="row analytics-container">
-		<div class="col-md-4">
-			<div class="panel panel-bordered realtime-panel">
-				<div class="panel-heading analytics-panel">
-					<h3>
-						Active Users right now
-					</h3>
-				</div>
-				<div class="panel-body realtime-body">
-					<span class="chart_loader" id="chart_loader_realtime_visitors">
-						<i class="voyager-helm"></i>
-					</span>
-					<div class="text-center">
-						<h1 id="realtime_visitors"></h1>
+	<div class="analytics-container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-bordered realtime-panel">
+					<div class="panel-heading analytics-panel">
+						<h3>
+							Active Users right now
+						</h3>
+					</div>
+					<div class="panel-body realtime-body">
+						<span class="chart_loader" id="chart_loader_realtime_visitors">
+							<i class="voyager-helm"></i>
+						</span>
+						<div class="text-center">
+							<h1 id="realtime_visitors"></h1>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-bordered realtime-panel">
-				<div class="panel-heading analytics-panel">
-					<h3>
-						Traffic Sources right now
-					</h3>
-				</div>
-				<div class="panel-body realtime-body">
-					<span class="chart_loader" id="chart_loader_realtime_sources">
-						<i class="voyager-helm"></i>
-					</span>
-					<div class="realtime_sources realtime-list">
+			<div class="col-md-4">
+				<div class="panel panel-bordered realtime-panel">
+					<div class="panel-heading analytics-panel">
+						<h3>
+							Traffic Sources right now
+						</h3>
+					</div>
+					<div class="panel-body realtime-body">
+						<span class="chart_loader" id="chart_loader_realtime_sources">
+							<i class="voyager-helm"></i>
+						</span>
+						<div class="realtime_sources realtime-list">
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-bordered realtime-panel">
-				<div class="panel-heading analytics-panel">
-					<h3>
-						Active Pages right now
-					</h3>
-				</div>
-				<div class="panel-body realtime-body">
-					<span class="chart_loader" id="chart_loader_realtime_pages">
-						<i class="voyager-helm"></i>
-					</span>
-					<div class="realtime_pages realtime-list">
+			<div class="col-md-4">
+				<div class="panel panel-bordered realtime-panel">
+					<div class="panel-heading analytics-panel">
+						<h3>
+							Active Pages right now
+						</h3>
+					</div>
+					<div class="panel-body realtime-body">
+						<span class="chart_loader" id="chart_loader_realtime_pages">
+							<i class="voyager-helm"></i>
+						</span>
+						<div class="realtime_pages realtime-list">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -263,7 +265,6 @@ $(function()
 					$(this).fadeIn();
 				});
 			});
-			console.log(realtime_app.stats.realtime_pages);
 		}
 	}
 	realtime_app.init();

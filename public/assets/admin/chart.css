@@ -17,8 +17,16 @@
 .realtime-body {
 	height: 160px;
 }
+.analytics-container > .row > [class*=col-] {
+    margin-bottom: 20px;
+}
 #realtime_visitors {
 	font-size: 80px;
+}
+.realtime-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .realtime-list ul {
 	margin-left: 10px;

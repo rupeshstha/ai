@@ -595,3 +595,23 @@ ul.checkbox label {
 .voyager .progress .progress-bar.progress-bar-danger {
     background-color: #EE5271;
 }
+.table-responsive {
+    padding-top: 10px;
+}
+
+@media (max-width:768px) {
+    .analytics-container {
+        padding: 15px 0 0 0 !important;
+    }
+    .page-content {
+        padding-left: 0;
+    }
+    .panel-body {
+        padding: 0 !important;
+    }
+}
+@media screen and (max-width:640px) {
+    .dataTables_filter, .dataTables_length {
+        text-align: left !important;
+    }
+}

@@ -209,7 +209,7 @@ class ChartController extends Controller
 				]
 			)->rows;
 			$realtime_data = [];
-			if ( count($realtime_sources) > 0 )
+			if ( $realtime_sources != null )
 			{
 				foreach ( $realtime_sources as $source ) $realtime_data[] = $source[0];
 			}
@@ -227,7 +227,7 @@ class ChartController extends Controller
 				]
 			)->rows;
 			$realtime_data = [];
-			if ( count($realtime_pages) > 0 )
+			if ( $realtime_pages != null )
 			{
 				foreach ( $realtime_pages as $page )
 				{

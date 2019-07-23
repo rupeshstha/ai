@@ -462,20 +462,22 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsFhirStore
    * request cannot be mapped to a valid API method on a FHIR store, a generic GCP
    * error might be returned instead.
    *
-   * # Search Parameters
-   *
    * The server's capability statement, retrieved through capabilities, indicates
    * what search parameters are supported on each FHIR resource. A list of all
    * search parameters defined by the specification can be found in the [FHIR
    * Search Parameter Registry](http://hl7.org/implement/standards/fhir/STU3
    * /searchparameter-registry.html).
    *
-   * # Search Modifiers
+   * Supported search modifiers: `:missing`, `:exact`, `:contains`, `:text`,
+   * `:in`, `:not-in`, `:above`, `:below`, `:[type]`, `:not`, and `:recurse`.
    *
-   * Modifier   | Supported ----------- | --------- `:missing`  | Yes `:exact`
-   * | Yes `:contains` | Yes `:text`     | Yes `:in`       | Yes `:not-in`   | Yes
-   * `:above`    | Yes `:below`    | Yes `:[type]`   | Yes `:not`      | Yes
-   * `:recurse`  | No (fhir.search)
+   * Supported search result parameters: `_sort`, `_count`, `_include`,
+   * `_revinclude`, `_summary=text`, `_summary=data`, and `_elements`.
+   *
+   * The maximum number of search results returned defaults to 100, which can be
+   * overridden by the `_count` parameter up to a maximum limit of 1000. If there
+   * are additional results, the returned `Bundle` will contain pagination links.
+   * (fhir.search)
    *
    * @param string $parent Name of the FHIR store to retrieve resources from.
    * @param Google_Service_CloudHealthcare_SearchResourcesRequest $postBody

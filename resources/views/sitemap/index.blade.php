@@ -4,7 +4,7 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 @foreach ($data as $page)
 	<sitemap>
-		<loc>{{ route('dynamic.sitemap', $page) }}</loc>
+		<loc>{{ route('sitemaps.dynamic', $page) }}</loc>
 	</sitemap>
 @endforeach
 </sitemapindex>

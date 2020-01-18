@@ -15,12 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('chart_data/{chart?}', 'ChartController@chart_data')->name('admin.chart_data');
-    Route::get('realtime_data', 'ChartController@realtime_data')->name('admin.realtime_data');
+
+    Route::get('forgot-password', 'Admin\ForgotPasswordController@index')->name('admin.forgot_password.index');
+    Route::post('forgot-password', 'Admin\ForgotPasswordController@reset')->name('admin.forgot_password.reset');
+    Route::get('forgot-password/{token}', 'Admin\ForgotPasswordController@token')->name('admin.forgot_password.token');
+    Route::put('forgot-password/{token}', 'Admin\ForgotPasswordController@update')->name('admin.forgot_password.update');
 });
 
 // Sitemap Routes
-Route::get('/sitemap.xml', 'SitemapController@index')->name('sitemap');
-Route::get('/sitemap-{page?}.xml', 'SitemapController@page')->name('dynamic.sitemap');
+Route::get('/sitemap.xml', 'Admin\SitemapController@index')->name('sitemaps.index');
+Route::get('/sitemap-{page?}.xml', 'Admin\SitemapController@page')->name('sitemaps.dynamic');

@@ -6,56 +6,14 @@
     <meta name="robots" content="none" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
-    <title>Admin - {{ Voyager::setting("admin.title") }}</title>
+    <title>{{ Voyager::setting("admin.title") }}</title>
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
     @if (__('voyager::generic.is_rtl') == 'true')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
         <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">
     @endif
     <style>
-        body {
-            background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") ) }}');
-            background-color: {{ Voyager::setting("admin.bg_color", "#FFFFFF" ) }};
-        }
-        body.login .login-sidebar {
-            border-top:5px solid {{ config('voyager.primary_color','#22A7F0') }};
-        }
-        @media (max-width: 767px) {
-            body.login .login-sidebar {
-                border-top:0px !important;
-                border-left:5px solid {{ config('voyager.primary_color','#22A7F0') }};
-            }
-        }
-        body.login .form-group-default.focused{
-            border-color:{{ config('voyager.primary_color','#22A7F0') }};
-        }
-        .login-button, .bar:before, .bar:after{
-            background:{{ config('voyager.primary_color','#22A7F0') }};
-        }
-        .remember-me-text{
-            padding:0 5px;
-        }
-        .extra-controls {
-            position: relative;
-            width: 100%;
-        }
-        .extra-controls input {
-            display: none;
-        }
-        .extra-controls #password_toggler {
-            cursor: pointer;
-            position: absolute;
-            right: 0;
-            top: -25px;
-        }
-        .extra-controls #password_toggler svg {
-            width: 18px;
-            height: 18px;
-            fill: #666;
-        }
-        .extra-controls #password_toggler:hover svg {
-            fill: #222;
-        }
+        body{background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") ) }}');background-color:{{Voyager::setting("admin.bg_color","#FFFFFF")}}}body.login .login-sidebar{border-top:5px solid{{config('voyager.primary_color','#22A7F0')}}}@media (max-width:767px){body.login .login-sidebar{border-top:0px!important;border-left:5px solid{{config('voyager.primary_color','#22A7F0')}}}}body.login .form-group-default.focused{border-color:{{config('voyager.primary_color','#22A7F0')}}}.login-button,.bar:before,.bar:after{background:{{config('voyager.primary_color','#22A7F0')}}}.remember-me-text{padding:0 5px}.extra-controls{position:relative;width:100%}.extra-controls input{display:none}.extra-controls #password_toggler{cursor:pointer;position:absolute;right:0;top:-25px}.extra-controls #password_toggler svg{width:18px;height:18px;fill:#666}.extra-controls #password_toggler:hover svg{fill:#222}
     </style>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -68,7 +26,7 @@
             <div class="clearfix">
                 <div class="col-sm-12 col-md-10 col-md-offset-2">
                     <div class="logo-title-container">
-                        <?php $admin_logo_img = Voyager::setting('admin.icon_image', ''); ?>
+                        @php $admin_logo_img = Voyager::setting('admin.icon_image', ''); @endphp
                         @if($admin_logo_img == '')
                         <img class="img-responsive pull-left flip logo hidden-xs animated fadeIn" src="{{ voyager_asset('images/logo-icon-light.png') }}" alt="Logo Icon">
                         @else
@@ -105,17 +63,22 @@
                         </div>
                         <div class="extra-controls">
                             <input type="checkbox" name="password_toggle" id="password_toggle" class="">
-                            <label for="password_toggle" id="password_toggler" title="Show Password">
+                            <label for="password_toggle" id="password_toggler" title="">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d=""/></svg>
                             </label>
                         </div>
                     </div>
 
                     <div class="form-group" id="rememberMeGroup">
-                        <div class="controls">
-                        <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">{{ __('voyager::generic.remember_me') }}</label>
+                        <div class="controls float-left">
+                            <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">{{ __('voyager::generic.remember_me') }}</label>
+                        </div>
+                        <div class="controls float-right">
+                            <a href="{{ route('admin.forgot_password.index') }}">Forgot Password?</a>
                         </div>
                     </div>
+
+                    <div class="clearfix"></div>
                     
                     <button type="submit" class="btn btn-block login-button">
                         <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
@@ -127,7 +90,7 @@
               <div style="clear:both"></div>
 
               @if(!$errors->isEmpty())
-              <div class="alert alert-red">
+              <div class="alert alert-{{ $errors->has('success') ? 'success' : 'red'}}">
                 <ul class="list-unstyled">
                     @foreach($errors->all() as $err)
                     <li>{{ $err }}</li>
@@ -182,7 +145,7 @@
             passwordContainer : "[name=password]",
             iconContainer : "#password_toggler svg path",
             init() {
-                $(this.iconContainer).attr('d', this.eyeOpen);
+                this.hidePassword();
                 this.binders();
             },
             binders() {

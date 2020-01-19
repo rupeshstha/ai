@@ -24,6 +24,9 @@
 .voyager .side-menu.sidebar-inverse {
     background: #2c2e3e;
 }
+#voyager-loader img, #file_loader img {
+    animation: none;
+}
 
 .voyager .side-menu.sidebar-inverse .navbar li.active > a,
 .voyager .side-menu.sidebar-inverse .navbar li.active > a:hover,

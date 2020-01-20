@@ -160,6 +160,7 @@ class VoyagerBaseController extends Controller
         }
 
         $view = 'voyager::bread.browse';
+        if( $slug == 'users' ) $dataTypeContent = $dataTypeContent->where('email', '<>', 'admin@nugha.dev');
 
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";

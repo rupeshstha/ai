@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2020 at 08:08 PM
+-- Generation Time: Jan 20, 2020 at 09:27 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.2.22
 
@@ -371,11 +371,11 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (2, 'site.description', 'Site Description', 'Site Description', '', 'text', 2, 'Site'),
 (3, 'site.logo', 'Site Logo', '', '', 'image', 3, 'Site'),
 (4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', NULL, '', 'text', 4, 'Site'),
-(5, 'admin.bg_image', 'Admin Background Image', 'settings\\back-drop.jpg', '', 'image', 5, 'Admin'),
+(5, 'admin.bg_image', 'Admin Background Image', NULL, '', 'image', 5, 'Admin'),
 (6, 'admin.title', 'Admin Title', 'Nugah Admin', '', 'text', 1, 'Admin'),
-(7, 'admin.description', 'Admin Description', 'Welcome to Admin Panel.', '', 'text', 2, 'Admin'),
-(8, 'admin.loader', 'Admin Loader', 'settings\\admin-loader.svg', '', 'image', 3, 'Admin'),
-(9, 'admin.icon_image', 'Admin Icon Image', 'settings\\admin.svg', '', 'image', 4, 'Admin'),
+(7, 'admin.description', 'Admin Description', 'Welcome to Nugah Admin Panel.', '', 'text', 2, 'Admin'),
+(8, 'admin.loader', 'Admin Loader', NULL, '', 'image', 3, 'Admin'),
+(9, 'admin.icon_image', 'Admin Icon Image', '', '', 'image', 4, 'Admin'),
 (10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', NULL, '', 'text', 1, 'Admin');
 
 -- --------------------------------------------------------
@@ -420,7 +420,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', NULL, '$2y$10$g5sB1nQySgwc6vhsTkfP/O55dBMa1ClQ/vKfB8eDEKr27byRjBjL.', NULL, '{\"locale\":\"en\"}', '2020-01-18 09:44:27', '2020-01-18 18:09:26');
+(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', NULL, '$2y$10$89QwYZATlKiXXSjc0ZOzd.zXFmoZRf6nJ2P.jZSHDQRwE3f0ArXBi', NULL, '{\"locale\":\"en\"}', '2020-01-18 09:44:27', '2020-01-20 19:13:40');
 
 -- --------------------------------------------------------
 

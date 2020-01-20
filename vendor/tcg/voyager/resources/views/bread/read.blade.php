@@ -2,6 +2,12 @@
 
 @section('page_title', __('voyager::generic.view').' '.$dataType->getTranslatedAttribute('display_name_singular'))
 
+@section('css')
+<style>
+    .panel-heading{width:170px;overflow:hidden}.panel-body,.panel-heading{float:left;border:none!important}.panel-body img{max-height:180px}.panel,.panel h3{font-size:14px;font-weight:400}.panel .panel-title{padding:0}.panel .panel-inner:not(:last-child){border-bottom:solid 1px #eee}
+</style>
+@stop
+
 @section('page_header')
     <h1 class="page-title">
         <i class="{{ $dataType->icon }}"></i> {{ __('voyager::generic.viewing') }} {{ ucfirst($dataType->getTranslatedAttribute('display_name_singular')) }} &nbsp;
@@ -40,6 +46,7 @@
                 <div class="panel panel-bordered" style="padding-bottom:5px;">
                     <!-- form start -->
                     @foreach($dataType->readRows as $row)
+                    <div class="panel-inner">
                         @php
                         if ($dataTypeContent->{$row->field.'_read'}) {
                             $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_read'};
@@ -130,11 +137,9 @@
                                 <p>{{ $dataTypeContent->{$row->field} }}</p>
                             @endif
                         </div><!-- panel-body -->
-                        @if(!$loop->last)
-                            <hr style="margin:0;">
-                        @endif
+                        <div class="clearfix"></div>
+                    </div>
                     @endforeach
-
                 </div>
             </div>
         </div>

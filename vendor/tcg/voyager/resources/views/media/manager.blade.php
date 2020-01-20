@@ -125,7 +125,7 @@
                 <div id="file_loader" v-if="is_loading">
                     <?php $admin_loader_img = Voyager::setting('admin.loader', ''); ?>
                     @if($admin_loader_img == '')
-                    <img src="{{ voyager_asset('images/logo-icon.png') }}" alt="Voyager Loader">
+                    <img src="{{ voyager_asset('images/admin-loader.svg') }}" alt="Voyager Loader">
                     @else
                     <img src="{{ Voyager::image($admin_loader_img) }}" alt="Voyager Loader">
                     @endif

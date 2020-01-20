@@ -88,6 +88,8 @@ class VoyagerController extends Controller
                 $mime = 'text/javascript';
             } elseif (Str::endsWith($path, '.css')) {
                 $mime = 'text/css';
+            } elseif (Str::endsWith($path, '.svg')) {
+                $mime = 'image/svg+xml';
             } else {
                 $mime = File::mimeType($path);
             }

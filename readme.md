@@ -1,10 +1,10 @@
-# Laravel Admin Panel
+# Nugah Admin Panel
 Made with 💖 by [Bikram Lama](https://bikramlama.com.np)
 
 ![](https://bikramlama.com.np/assets/cdn/admin_panel.png)
 
 ---
-Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 5.5, 5.6, 5.7 and 5.8!
+Nugah Admin Panel : PHP 7.2, Laravel 6.x, Voyager 1.3.
 
 ## Installation Steps
 ### 1. Add the DB Credentials & APP_URL

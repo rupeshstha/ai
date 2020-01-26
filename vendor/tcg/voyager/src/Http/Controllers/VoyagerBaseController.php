@@ -20,6 +20,34 @@ class VoyagerBaseController extends Controller
 {
     use BreadRelationshipParser;
 
+    private function authorizeEdit($slug, $dataTypeContent) {
+        if ( $slug != 'users' || auth()->user()->role_id == 1 ) return true;
+        if ( $dataTypeContent->role_id == 1 ) abort('403');
+        return true;
+    }
+
+    private function authorizeUpdate($slug, $data, $request) {
+        if ( $slug != 'users' || auth()->user()->role_id == 1 ) return true;
+        $additional_roles = $request->user_belongstomany_role_relationship ?? [];
+        if ( in_array('1', $additional_roles) ) abort('403');
+        if ( $data->role_id == 1 || $request->role_id == 1 ) abort('403');
+        return true;
+    }
+
+    private function authorizeStore($slug, $request) {
+        if ( $slug != 'users' || auth()->user()->role_id == 1 ) return true;
+        $additional_roles = $request->user_belongstomany_role_relationship ?? [];
+        if ( in_array('1', $additional_roles) ) abort('403');
+        if ( $request->role_id == 1 ) abort('403');
+        return true;
+    }
+
+    public function authorizeDelete($slug, $id) {
+        if ( $slug != 'users' || auth()->user()->role_id == 1 ) return true;
+        $user_role_id = Voyager::model('User')->find($id)->role_id;
+        if ( $user_role_id == 1 ) abort('403');
+    }
+
     //***************************************
     //               ____
     //              |  _ \
@@ -160,7 +188,10 @@ class VoyagerBaseController extends Controller
         }
 
         $view = 'voyager::bread.browse';
-        if( $slug == 'users' ) $dataTypeContent = $dataTypeContent->where('email', '<>', 'admin@nugha.dev');
+        if( $slug == 'users' ) {
+            $dataTypeContent = $dataTypeContent->where('email', '<>', 'admin@nugha.dev');
+            if ( auth()->user()->role_id != 1 ) $dataTypeContent = $dataTypeContent->where('role_id', '<>', 1);
+        }
 
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";
@@ -287,6 +318,7 @@ class VoyagerBaseController extends Controller
 
         // Check permission
         $this->authorize('edit', $dataTypeContent);
+        $this->authorizeEdit($slug, $dataTypeContent);
 
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
@@ -322,6 +354,7 @@ class VoyagerBaseController extends Controller
 
         // Check permission
         $this->authorize('edit', $data);
+        $this->authorizeUpdate($slug, $data, $request);
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id)->validate();
@@ -401,6 +434,7 @@ class VoyagerBaseController extends Controller
 
         // Check permission
         $this->authorize('add', app($dataType->model_name));
+        $this->authorizeStore($slug, $request);
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
@@ -444,6 +478,7 @@ class VoyagerBaseController extends Controller
 
         // Check permission
         $this->authorize('delete', app($dataType->model_name));
+        $this->authorizeDelete($slug, $id);
 
         // Init array of IDs
         $ids = [];
@@ -884,6 +919,7 @@ class VoyagerBaseController extends Controller
                 }
 
                 foreach ($relationshipOptions as $relationshipOption) {
+                    if ( auth()->user()->role_id != 1 && $slug == 'users' && $relationshipOption->id == 1 ) continue;
                     $results[] = [
                         'id'   => $relationshipOption->{$options->key},
                         'text' => $relationshipOption->{$options->label},

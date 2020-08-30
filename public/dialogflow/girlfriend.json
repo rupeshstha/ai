@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "girlfriend-xkcv",
+  "private_key_id": "7da7c2eda256ef460d83f301b62f4ed54bfddc83",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCrJmFNt2Bs6Vmg\n/HlFxz7CZHOZKjUnXxNE3BWQ8fFvpjwdCzp4Kqc8QdU6rbVE+uykQN8le+swFTNj\nB1ayGU9JbtoCVLDB+3qu+Xlq+YE411ZE60+Xg1n5rq3fUZoAIH3cn/sjaEgCWdDz\nFrhYYwL+JIyRsmTN0z4a89cGsefM0LMiIX4rvrXEF1Ci+JfFT9gg40Rv2Nzd9Fwk\niSs27squpc7R9GrGBG9y2nDXqsOs30HQEpG1/tOb85IPfIwtuUkBZwIxZKDVq08B\nZhflWhXlBQ39AyaXB9h+ETwppPDgR8XTV3DIb6FZxeL9Y4OCB1ghhDqCa9y4DrOY\nAb+uudzlAgMBAAECggEAA6FVBjG59cgY+qvtmOq3Z1FQ+Az34yhRBOXOfvb5dMbi\ndrLpWtP8HPBViOuB0TR++/iUncYsMHvRTaFXIqscQ4BlLJBQznsvzecklD22ErdT\nO7N/tO+YOI5OtFJWBqN/H+9Jw6VqL5iURhpeLyEXLBOo4qHqzEiAhFBV6C0Hr7sC\n9fGp/HQBsKUsr2FqnHpuJR0g66cUH2pEriX5RcmSDcOBDNJm5zQIUt50VqDlS+1s\n4/mUHJtZqwvn49wFMamYy4a8GTUuicjR4rO+t3yXLgdmBN3WCjFBPTJvHFexiCP+\nkvN6u8jVvegZw+bbLo/rFBVrcmTrECh0AMSXgQSjWQKBgQDYOrdMzrr9jnwI8K/9\nwAjUBto62FbJTdcsPNE+MTdIjep0ZyeNreVWAwuelrqA4qON8tB75mNa69Oobd3M\nBSQU4wdRcQrMSzA9pmdyVfogKrg+5s5DAl7BoQ8JlQyjXQe2w9MfuINPh3o/8thE\nmdpLKI2Hwwq4jwVPjB28YUDj7QKBgQDKoRKjB+cKbMm0ZyxJzpLiHaMwlRFxCp3t\n4hqW9JaGzvgB4gH32uJd+nYIVfte1Jjz3QyKIuLUV76At8BZq2wRDyjdMOIoGFt7\nxCCAWPHM8dNgT4232jgmQ9iok72qKURgtzOW04FosJOsfo8JTNz9v4VbQlABuS+q\nsW88LEgt2QKBgD1SWY2Ey28BK5f1elPCVD6dOuKZW/N3CeDX1peGqaD/7k/YuVTq\nzjFYZ8EwCfBnVe75v7qDmgW8/6eykMY9ZwAtanPkVSWe5S12tbutOmRI+TuNhU1n\nrKvJG1SiWpUx2vAwFP3X/BVf3IGqQz8hStEpzQmFfNLebKkkmYJFKnv5AoGAPBYr\nmqC7SIIeBhsaLQDO2bKEM+HgfC7zyhjkXaNGB8/UB2rnvoHv4oJlAe/NTL+qY5ZH\nI6dYsDMc0LqslWqZ7y0Zpw3Z4p3mcvsj0CuP+IA1eDffBIf3YpF36/VzpsP5/NwW\ntkEd/Ndv0xTsgYuDdNOYTgmKBBjQI8PeAm/3L3ECgYAjJXQPyV2YDRZY46tF8rgB\nmUhlqzqq7+juzr3h+jxFJihu4Q3191C243g7dRRXem/VII4U9pbMbMPJpUjf92VE\nOn2l6OOPoTkvfYb82QKNoil+uHXdhBH8wm0t/UAElvO6Yu1QMhe/qrQEu1m19fKD\nCgWDRA+yVYNIFkin78QXXw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "girlfriend@girlfriend-xkcv.iam.gserviceaccount.com",
+  "client_id": "112924383407622296032",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/girlfriend%40girlfriend-xkcv.iam.gserviceaccount.com"
+}

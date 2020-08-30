@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-    return view('welcome');
+    return view('index');
 })->name('home');
 
 // Admin Routes
@@ -26,3 +26,7 @@ Route::group(['as' => 'sitemaps.'], function() {
 	Route::get('/sitemap.xml', $namespacePrefix.'SitemapController@index')->name('index');
 	Route::get('/sitemap-{page?}.xml', $namespacePrefix.'SitemapController@page')->name('dynamic');
 });
+
+Route::get('store-data','SupportController@store')->name('store');
+Route::post('test-data','SupportController@test')->name('test');
+

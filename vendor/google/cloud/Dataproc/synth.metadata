@@ -1,0 +1,46 @@
+{
+  "sources": [
+    {
+      "git": {
+        "name": ".",
+        "remote": "https://github.com/googleapis/google-cloud-php.git",
+        "sha": "a3f4ac13d81b4b039e3b76aa5d0800acf20dd812"
+      }
+    },
+    {
+      "git": {
+        "name": "googleapis",
+        "remote": "https://github.com/googleapis/googleapis.git",
+        "sha": "d8a3dfb82f5cae3f1bcdcec7c5726581532da7d5",
+        "internalRef": "323829608"
+      }
+    },
+    {
+      "git": {
+        "name": "synthtool",
+        "remote": "https://github.com/googleapis/synthtool.git",
+        "sha": "89d431fb2975fc4e0ed24995a6e6dfc8ff4c24fa"
+      }
+    }
+  ],
+  "destinations": [
+    {
+      "client": {
+        "source": "googleapis",
+        "apiName": "dataproc",
+        "apiVersion": "v1",
+        "language": "php",
+        "generator": "bazel"
+      }
+    },
+    {
+      "client": {
+        "source": "googleapis",
+        "apiName": "dataproc",
+        "apiVersion": "v1beta2",
+        "language": "php",
+        "generator": "bazel"
+      }
+    }
+  ]
+}

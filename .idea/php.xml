@@ -118,11 +118,14 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/grpc/grpc" />
-      <path value="$PROJECT_DIR$/vendor/google/cloud-dialogflow" />
       <path value="$PROJECT_DIR$/vendor/google/protobuf" />
       <path value="$PROJECT_DIR$/vendor/google/common-protos" />
       <path value="$PROJECT_DIR$/vendor/google/grpc-gcp" />
       <path value="$PROJECT_DIR$/vendor/google/gax" />
+      <path value="$PROJECT_DIR$/vendor/eristemena/dialogflow-fulfillment-webhook-php" />
+      <path value="$PROJECT_DIR$/vendor/rize/uri-template" />
+      <path value="$PROJECT_DIR$/vendor/google/cloud" />
+      <path value="$PROJECT_DIR$/vendor/google/crc32" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

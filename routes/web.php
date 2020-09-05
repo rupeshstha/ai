@@ -11,8 +11,11 @@
 |
 */
 
+use App\UserCounter;
+
 Route::get('/', function() {
-    return view('index');
+    $user_count = UserCounter::where('id', 1)->first();
+    return view('index',compact('user_count'));
 })->name('home');
 
 // Admin Routes

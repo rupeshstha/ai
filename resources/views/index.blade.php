@@ -1,3 +1,17 @@
+@php
+    use App\UserCounter;
+    $view_count = UserCounter::where('id', 1)->first();
+
+    if (session()->get('viewed') == 'already'){
+
+    }
+    else{
+        $view_count->update(['view_count'=> $view_count->view_count+1]);
+    }
+
+
+    session()->put('viewed','already');
+@endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,21 +23,48 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title> AI </title>
+    <style>
+        .speech {
+            border: 1px solid #DDD;
+            width:300px;
+            padding:0;
+            margin:0
+        }
+
+        .speech input {
+            border:0;
+            width:240px;
+            display:inline-block;
+            height:30px;
+            font-size: 14px;
+        }
+
+        .speech img {
+            float:right;
+            width:40px
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
     <h1 class="text-center">Hello, world! </h1>
     <h3 class="text-center">Please feed me with your message to learn more about the world.</h3>
+    <small class="text-center">{{ $view_count->view_count }} People have reached me and {{ $view_count->talk_count }} people have send me query. </small>
 
 </div>
 <div class="container">
-    <form action="{{ route('test') }}" method="post">
+    <form id="ai" action="{{ route('test') }}" method="post">
         @csrf
         <div class="row">
-            <div class="col-md-12 form-group">
-                <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Feed me with your message like: i love you, hello there, tell me joke"></textarea>
+            <div class="col-md-12 form-group speech mb-1">
+                <input name="message" class="form-control" id="voice-recognize" placeholder="Say something like" required>
+                <img onclick="startDictation()" src="https://i.imgur.com/cHidSVu.gif" />
+                @if($errors->has('message'))
+                    <small class="text-danger">{{ $errors->first('message') }}</small>
+                @endif
             </div>
-            <div class="col-md-12 form-group">
+            <div class="col-md-12 form-group ">
                 <button type="submit" class="btn btn-primary">Send</button>
             </div>
         </div>
@@ -35,6 +76,34 @@
         Respond from AI: <strong>{{ $reply }}</strong>
     @endif
 </div>
+
+
+
+<script>
+
+    function startDictation() {
+
+        if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+            var recognition = new webkitSpeechRecognition();
+
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "en-US";
+            recognition.start();
+
+            recognition.onresult = function (e) {
+                document.getElementById('voice-recognize').value = e.results[0][0].transcript;
+                recognition.stop();
+                document.getElementById('ai').submit();
+            };
+            recognition.onerror = function(e) {
+                recognition.stop();
+            }
+        }
+    }
+
+</script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

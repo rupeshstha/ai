@@ -26,9 +26,13 @@ class SupportController extends Controller
 
     public function test(Request $request)
     {
-//        dd();
 
-        $data = $request->validate(['message'=>'required'],['message.required'=>"Oops! you didn't send me any message. I don't like this :(" ]);
+        $data = $request->validate([
+            'message'=>'required'
+            ],
+            [
+                'message.required'=>"Oops! you didn't send me any message. I don't like this :("
+            ]);
 
         $projectName = 'girlfriend-xkcv';
 
@@ -55,6 +59,7 @@ class SupportController extends Controller
         // get response and relevant info
         $response = $session_client->detectIntent($session, $queryInput);
         $queryResult = $response->getQueryResult();
+//        dd($queryResult);
 
         $user_count = UserCounter::where('id', 1)->first();
         $user_count->update(['talk_count'=> $user_count->talk_count+1]);
